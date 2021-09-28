@@ -41,7 +41,7 @@ pipeline {
             }
           }
         }
-        stage('Dependency Checker') {
+        stage('SCA') {
           steps {
             container('maven') {
               catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
