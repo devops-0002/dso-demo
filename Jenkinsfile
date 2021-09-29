@@ -98,13 +98,6 @@ pipeline {
     }
     stage('Package') {
       parallel {
-        stage('Create Jarfile') {
-          steps {
-            container('maven') {
-              sh 'mvn package -DskipTests'
-            }
-          }
-        }
         stage('Docker BnP') {
           steps {
             container('kaniko') {
@@ -115,6 +108,31 @@ pipeline {
       }
     }
 
+    stage('Artefact Analysis') {
+      parallel {
+        stage('Image Scan') {
+          steps {
+            container('docker-tools') {
+              sh 'grype docker.io/initcron/dsodemo'
+              }
+          }
+        }
+        stage('Image Linting') {
+          steps {
+            container('docker-tools') {
+              sh 'dockle docker.io/initcron/dsodemo'
+            }
+          }
+        }
+        stage('K8s Hardening') {
+          steps {
+            container('docker-tools') {
+              sh 'kubesec scan pod.yaml'
+            }
+          }
+        }
+      }
+    }
     stage('Deploy to Dev') {
       steps {
         // TODO
