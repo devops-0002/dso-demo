@@ -108,7 +108,7 @@ pipeline {
       }
     }
 
-    stage('Artefact Analysis') {
+    stage('Image Analysis') {
       parallel {
         stage('Image Scan') {
           steps {
@@ -121,13 +121,6 @@ pipeline {
           steps {
             container('docker-tools') {
               sh 'dockle docker.io/initcron/dsodemo'
-            }
-          }
-        }
-        stage('K8s Hardening') {
-          steps {
-            container('docker-tools') {
-              sh 'kubesec scan pod.yaml'
             }
           }
         }
