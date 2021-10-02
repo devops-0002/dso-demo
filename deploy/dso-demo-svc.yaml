@@ -3,8 +3,8 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: vote
-  name: vote
+    app: dso-demo
+  name: dso-demo
 spec:
   ports:
   - name: "8080"
@@ -13,7 +13,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app: vote
+    app: dso-demo
   type: NodePort
 status:
   loadBalancer: {}
