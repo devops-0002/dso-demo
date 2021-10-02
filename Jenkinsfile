@@ -113,7 +113,7 @@ pipeline {
         stage('Image Scan') {
           steps {
             container('docker-tools') {
-              sh 'grype docker.io/initcron/dsodemo'
+              sh 'trivy image --exit-code 1 initcron/dso-demo:ms'
               }
           }
         }
