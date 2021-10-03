@@ -24,7 +24,7 @@ pipeline {
     stage('Deploy to Dev') {
       environment { 
         AUTH_TOKEN = credentials('argocd-jenkins-deployer-token')
-        ARGO_SERVER = 'argocd-server.argocd.svc.cluster.local'
+        ARGO_SERVER = 'argocd-server.argocd'
       }
       steps {
         container('docker-tools') {
