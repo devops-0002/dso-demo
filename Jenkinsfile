@@ -26,8 +26,8 @@ pipeline {
         AUTH_TOKEN = credentials('argocd-jenkins-deployer-token') 
       }
       steps {
-        printenv
         container('docker-tools') {
+          sh 'docker run -t schoolofdevops/argocd-cli echo $AUTH_TOKEN'
           sh 'docker run -t schoolofdevops/argocd-cli argocd app sync dso-demo  --insecure --server 35.239.154.108:32100 --auth-token $AUTH_TOKEN'
         }
       }
