@@ -21,6 +21,16 @@ pipeline {
         }
       }
     }
+    stage('Deploy to Dev') {
+      environment { 
+        AUTH_TOKEN = credentials('argocd-jenkins-deployer-token') 
+      }
+      steps {
+        container('docker-tools') {
+          sh 'docker run -t schoolofdevops/argocd-cli app sync dso-demo  --insecure --server 35.239.154.108:32100 --auth-token $AUTH_TOKEN'
+        }
+      }
+    }
     stage('Build') {
       parallel {
         stage('Compile') {
@@ -124,12 +134,6 @@ pipeline {
             }
           }
         }
-      }
-    }
-    stage('Deploy to Dev') {
-      steps {
-        // TODO
-        sh "echo done"
       }
     }
   }
