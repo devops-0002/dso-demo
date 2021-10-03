@@ -18,7 +18,7 @@ spec:
         app: dso-demo
     spec:
       containers:
-      - image: initcron/dso-demo
+      - image: initcron/dsodemo
         name: dso-demo
         ports:
         - containerPort: 8080
